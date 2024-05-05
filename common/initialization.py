@@ -1,23 +1,29 @@
+# q = 17
+# p = 30
+
 import pandas as pd # Для чтения Excell таблиц
 import numpy as np # Для создания матриц
 
-# Инициализация списка источников ЭДС из файла E.xlsx
+# Инициализация матрицы источников ЭДС из файла E.xlsx
 def E():
     filepath = 'excell_tables/E.xlsx'
     df = pd.read_excel(filepath)
     rowcount = df.shape[0]
-    matrix = np.zeros([rowcount + 1], dtype=np.complex64)
+    list = np.zeros([rowcount + 1], dtype=np.complex64)
     for i in range(1, rowcount + 1):
-        matrix[i] = df.iloc[i - 1, 1]
-    return(matrix)
+        list[i] = df.iloc[i - 1, 1]
+    matrix = np.zeros([30, 1], dtype=np.complex64)
+    matrix[0,  0] = list[1] # E1 -> Y1
+    matrix[1,  0] = list[2] # E2 -> Y2
+    matrix[16, 0] = list[3] # E3 -> Y17
+    matrix[17, 0] = list[4] # E4 -> Y18
+    return matrix
 
-# Инициализация списка значений проводимости из файла Y.xlsx
+# Инициализация матрицы значений проводимости из файла Y.xlsx
 def Y():
     filepath = 'excell_tables/Y.xlsx'
     df = pd.read_excel(filepath)
-    print(df)
     rowcount = df.shape[0]
-    matrix = np.zeros([rowcount + 1], dtype=np.complex64)
     real = np.zeros([rowcount + 1], dtype=np.complex64)
     imag = np.zeros([rowcount + 1], dtype=np.complex64)
     for i in range(1, rowcount + 1):
@@ -25,6 +31,17 @@ def Y():
     for i in range(1, rowcount + 1):
         imag[i] = df.iloc[i - 1, 2]
     imag = imag * np.sqrt(-1, dtype=np.complex64)
-    matrix = real + imag
-    return matrix
+    list = real + imag
+    matrix = np.zeros([30, 30], dtype=np.complex64)
+    for i in range(matrix.shape[0]):
+        matrix[i, i] = list[i + 1]
+    return matrix        
 
+# Инициализация матрицы соединений
+def A():
+    filepath = 'excell_tables/A.xlsx'
+    df = pd.read_excel(filepath)
+    df = df.fillna(0)
+    matrix = df.iloc[0: , 1:].values
+    matrix = matrix.astype('complex64')
+    return matrix
