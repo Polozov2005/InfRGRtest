@@ -17,7 +17,11 @@ def E():
     matrix[1,  0] = list[2] # E2 -> Y2
     matrix[16, 0] = list[3] # E3 -> Y17
     matrix[17, 0] = list[4] # E4 -> Y18
-    return matrix
+    dictionary = {
+        'list':list,
+        'matrix':matrix
+    }
+    return dictionary
 
 # Инициализация матрицы значений проводимости из файла Y.xlsx
 def Y():
@@ -35,7 +39,11 @@ def Y():
     matrix = np.zeros([30, 30], dtype=np.complex64)
     for i in range(matrix.shape[0]):
         matrix[i, i] = list[i + 1]
-    return matrix        
+    dictionary = {
+        'list':list,
+        'matrix':matrix
+    }
+    return dictionary
 
 # Инициализация матрицы соединений
 def A():
@@ -44,4 +52,7 @@ def A():
     df = df.fillna(0)
     matrix = df.iloc[0: , 1:].values
     matrix = matrix.astype('complex64')
-    return matrix
+    dictionary = {
+        'matrix':matrix
+    }
+    return dictionary
