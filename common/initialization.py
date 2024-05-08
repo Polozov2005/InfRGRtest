@@ -4,7 +4,7 @@
 import pandas as pd # Для чтения Excell таблиц
 import numpy as np # Для создания матриц
 
-# Инициализация матрицы источников ЭДС из файла E.xlsx
+# Инициализация значений источников ЭДС из файла E.xlsx
 def E():
     filepath = 'excell_tables/E.xlsx'
     df = pd.read_excel(filepath)
@@ -23,7 +23,7 @@ def E():
     }
     return dictionary
 
-# Инициализация матрицы значений проводимости из файла Y.xlsx
+# Инициализация значений проводимости из файла Y.xlsx
 def Y():
     filepath = 'excell_tables/Y.xlsx'
     df = pd.read_excel(filepath)
@@ -56,3 +56,5 @@ def A():
         'matrix':matrix
     }
     return dictionary
+
+# Инициализация значений

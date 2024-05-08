@@ -1,10 +1,6 @@
 import numpy as np
+import common.initialization as ini
 
-A = np.zeros([1], dtype=np.complex64)
-real = np.array([1], dtype=np.complex64)
-imag = np.array([1], dtype=np.complex64)
+E = ini.E()['list']
 
-imag = imag * np.sqrt(-1, dtype=np.complex64)
-
-A = real + imag
-print(A)
+print(E[4])
