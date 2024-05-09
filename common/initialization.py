@@ -76,4 +76,23 @@ def A():
     
     return dictionary
 
-# Инициализация значений
+# Инициализация значений источников тока
+def I():
+    filepath = 'excell_tables/I.xlsx'
+    df = pd.read_excel(filepath)
+
+    rowcount = df.shape[0]
+
+    list = np.zeros([rowcount + 1], dtype=np.complex64)
+
+    for i in range(1, rowcount + 1):
+        list[i] = df.iloc[i - 1, 1]
+
+    matrix = np.zeros([30, 1], dtype=np.complex64)
+
+    dictionary = {
+        'list':list,
+        'matrix':matrix
+    }
+
+    return dictionary
