@@ -3,12 +3,7 @@ import initialization
 import numpy as np
 
 # Расчёт значений узловых потенциалов всей схемы
-def U():
-    A = initialization.A()['matrix']
-    Y = initialization.Y()['matrix']
-    I = initialization.I()['matrix']
-    E = initialization.E()['matrix']
-
+def U(A, Y, I, E):
     LEFT = me.matrix_multiplication(A, Y)
     LEFT = me.matrix_multiplication(LEFT, me.transposition(A))
 
