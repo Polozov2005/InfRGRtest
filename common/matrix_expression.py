@@ -23,7 +23,7 @@ def addition(A, B):
         return result
 
 # Умножение матриц
-def multiplication(A, B):
+def matrix_multiplication(A, B):
     if A.shape[1] != B.shape[0]:
         print('Ошибка при умножении: число столбцов первого множителя должно совпадать', 
               'с числом строк второго множителя')   
@@ -45,6 +45,22 @@ def multiplication(A, B):
                     result[i, k] = result[i, k] + C[i, j] * B[j, k]
 
         return result
+    
+# Умножение матрицы на скаляр
+def scalar_multiplication(a, A):
+    C = np.copy(A)
+    C = C.astype('complex64')
+
+    rowcount = C.shape[0]
+    columncount = C.shape[1]
+
+    for i in range(rowcount):
+        for j in range(columncount):
+            C[i, j] = a * C[i, j]
+
+    result = C
+    return result
+
 
 # Транспонирование
 def transposition(A):
