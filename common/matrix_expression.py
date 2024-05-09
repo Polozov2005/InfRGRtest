@@ -110,19 +110,3 @@ def gauss(A, B):
 
         result = X
         return result
-
-A = np.array([
-    [5, 1 + 1j, 4],
-    [1, 2, 6],
-    [6, 4, 3],
-])
-
-B = np.array([
-    [3],
-    [4],
-    [7],
-    [8]
-])
-
-print(gauss(A, B))
-print(np.linalg.solve(A, B))
