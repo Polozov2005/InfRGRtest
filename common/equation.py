@@ -54,8 +54,3 @@ def X():
     }
 
     return dictionary
-
-
-X = X()['list']
-df_X = pd.DataFrame(data=X)
-print(df_X)
