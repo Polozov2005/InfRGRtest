@@ -1,9 +1,8 @@
 import matrix_expression as me
 import initialization
 import numpy as np
-import pandas as pd 
 
-
+# Расчёт значений узловых потенциалов всей схемы
 def U():
     A = initialization.A()['matrix']
     Y = initialization.Y()['matrix']
@@ -33,6 +32,7 @@ def U():
 
     return dictionary
 
+# Расчёт значений узловых потенциалов в точках X
 def X():
     U_list = U()['list']
 
