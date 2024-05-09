@@ -28,21 +28,19 @@ def U(A, Y, I, E):
     return dictionary
 
 # Расчёт значений узловых потенциалов в точках X
-def X():
-    U_list = U()['list']
-
+def X(U):
     list = np.zeros([10 + 1], dtype=np.complex64)
 
-    list[ 1] = U_list[15]
-    list[ 2] = U_list[11]
-    list[ 3] = U_list[ 9]
-    list[ 4] = U_list[10]
-    list[ 5] = U_list[ 7]
-    list[ 6] = U_list[ 8]
-    list[ 7] = U_list[ 3]
-    list[ 8] = U_list[ 4]
-    list[ 9] = U_list[ 1]
-    list[10] = U_list[ 2]
+    list[ 1] = U[15]
+    list[ 2] = U[11]
+    list[ 3] = U[ 9]
+    list[ 4] = U[10]
+    list[ 5] = U[ 7]
+    list[ 6] = U[ 8]
+    list[ 7] = U[ 3]
+    list[ 8] = U[ 4]
+    list[ 9] = U[ 1]
+    list[10] = U[ 2]
 
     dictionary = {
         'list':list
