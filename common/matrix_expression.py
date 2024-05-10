@@ -80,15 +80,21 @@ def transposition(A):
 
 # Решение СЛАУ методом Гаусса
 def gauss(A, B):
+    errorcount = 0
 
     if A.shape[0] != A.shape[1]:
         print('Левая часть уравнения должна быть квадратной матрицей')
-    elif B.shape[1] != 1:
+        errorcount += 1
+    
+    if B.shape[1] != 1:
         print('Правая часть уравнения должна быть столбцом')
-    elif A.shape[0] != B.shape[0]:
+        errorcount += 1
+    
+    if A.shape[0] != B.shape[0]:
         print('Количества строк левой и правой матриц должны совпадать')
+        errorcount += 1
 
-    else:
+    if errorcount == 0:
         C = np.copy(A)
         C = C.astype('complex64')
 
