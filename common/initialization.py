@@ -51,7 +51,7 @@ def Y():
 
     matrix = np.zeros([30, 30], dtype=np.complex64)
 
-    for i in range(matrix.shape[0]):
+    for i in range(list.shape[0] - 1):
         matrix[i, i] = list[i + 1]
 
     dictionary = {

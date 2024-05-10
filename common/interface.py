@@ -35,7 +35,7 @@ frm_checkbutton.place(
     x=800,
     y=0,
     width = 800,
-    height = 150
+    height = 160
 )
 
 frm_Y = Frame(
@@ -44,9 +44,9 @@ frm_Y = Frame(
 )
 frm_Y.place(
     x=800,
-    y=150,
+    y=160,
     width = 800,
-    height = 150
+    height = 160
 )
 
 frm_E = Frame(
@@ -55,9 +55,9 @@ frm_E = Frame(
 )
 frm_E.place(
     x=800,
-    y=300,
+    y=320,
     width = 800,
-    height = 150
+    height = 160
 )
 
 frm_solveandsave = Frame(
@@ -66,9 +66,9 @@ frm_solveandsave = Frame(
 )
 frm_solveandsave.place(
     x=800,
-    y=450,
+    y=480,
     width = 800,
-    height = 150
+    height = 100
 )
 
 frm_U = Frame(
@@ -77,9 +77,9 @@ frm_U = Frame(
 )
 frm_U.place(
     x=800,
-    y=600,
+    y=580,
     width = 800,
-    height = 150
+    height = 160
 )
 
 frm_X = Frame(
@@ -88,9 +88,9 @@ frm_X = Frame(
 )
 frm_X.place(
     x=800,
-    y=750,
+    y=740,
     width = 800,
-    height = 150
+    height = 160
 )
 
 ### Выключатели
@@ -162,55 +162,62 @@ for i in range(1 + 1):
 ### Y
 Y_list = initialization.Y()['list']
 
-label_i_Y = Label(
-    frm_Y,
-    text='i'
-)
-
-label_i_Y.grid(
-    row=0,
-    column=0,
-)
-
-label_i_Y = Label(
-    frm_Y,
-    text='i'
-)
-
-label_i_Y.grid(
-    row=2,
-    column=0,
-)
-
-label_Y = Label(
-    frm_Y,
-    text='Y[i], См'
-)
-
-label_Y.grid(
-    row=1,
-    column=0,
-)
-
-for i in range(1, len(Y_list)):
-    label_count = Label(
+for k in range(-((-len(Y_list)+1)//10)):
+    label_i_Y = Label(
         frm_Y,
-        text=str(i)
+        text='i'
     )
 
-    label_count.grid(
-        row=0,
-        column=i
+    label_i_Y.grid(
+        row=2*k,
+        column=0,
     )
 
-    label_Y_list = Label(
+    label_Y = Label(
         frm_Y,
-        text=str(Y_list[i])
+        text='Y[i], См'
     )
 
-    label_Y_list.grid(
-        row=1,
-        column=i
+    label_Y.grid(
+        row=2*k + 1,
+        column=0,
     )
+
+    for i in range(1, 10 + 1):
+        label_count = Label(
+            frm_Y,
+            text=str(i + 10*k)
+        )
+
+        label_count.grid(
+            row=2*k,
+            column=i
+        )
+
+        delta = (len(Y_list) - 1) - 10*k
+        if delta < 10:
+            for j in range(1, delta + 1):
+                label_Y_list = Label(
+                    frm_Y,
+                    text=str(Y_list[j + 10*k])
+                )
+
+                label_Y_list.grid(
+                    row=2*k + 1,
+                    column=j
+                )
+
+        else:
+            label_Y_list = Label(
+                frm_Y,
+                text=str(Y_list[i + 10*k])
+            )
+
+            label_Y_list.grid(
+                row=2*k + 1,
+                column=i
+            )
+
+
 
 root.mainloop()
