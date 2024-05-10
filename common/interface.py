@@ -1,5 +1,6 @@
 from tkinter import *
 from ctypes import windll
+import initialization
 
 # Настройка дизайна
 background_color = '#181818'
@@ -106,7 +107,7 @@ label_i_checkbutton.grid(
 
 label_B_checkbutton = Label(
     frm_checkbutton,
-    text = 'B'
+    text = 'B[i]'
 )
 
 label_B_checkbutton.grid(
@@ -156,6 +157,60 @@ for i in range(1 + 1):
     frm_checkbutton.rowconfigure(
         index=i,
         weight=1
+    )
+
+### Y
+Y_list = initialization.Y()['list']
+
+label_i_Y = Label(
+    frm_Y,
+    text='i'
+)
+
+label_i_Y.grid(
+    row=0,
+    column=0,
+)
+
+label_i_Y = Label(
+    frm_Y,
+    text='i'
+)
+
+label_i_Y.grid(
+    row=2,
+    column=0,
+)
+
+label_Y = Label(
+    frm_Y,
+    text='Y[i], См'
+)
+
+label_Y.grid(
+    row=1,
+    column=0,
+)
+
+for i in range(1, len(Y_list)):
+    label_count = Label(
+        frm_Y,
+        text=str(i)
+    )
+
+    label_count.grid(
+        row=0,
+        column=i
+    )
+
+    label_Y_list = Label(
+        frm_Y,
+        text=str(Y_list[i])
+    )
+
+    label_Y_list.grid(
+        row=1,
+        column=i
     )
 
 root.mainloop()
