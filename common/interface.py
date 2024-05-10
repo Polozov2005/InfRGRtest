@@ -142,7 +142,7 @@ for i in range(1, 10 +  1):
 
     list_checkbutton[i].grid(
         row = 1,
-        column = i
+        column = i,
     )
 
 
