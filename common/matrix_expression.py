@@ -108,6 +108,9 @@ def gauss(A, B):
         for k in range(rowcount - 1):
             if C[k, k] == 0:
                 print('В ходе решения на главной диагонали оказался ноль - система не совместна')
+                errorcount += 1
+                
+                result = 0
             else:
                 for i in range(k+1, rowcount):
                     coefficient = C[i, k] / C[k, k]
@@ -119,19 +122,23 @@ def gauss(A, B):
                     D[i] += -D[k] * coefficient
 
         # Обратный ход
-        if C[rowcount - 1, rowcount - 1] == 0:
-            print('В ходе решения на главной диагонали оказался ноль - система не совместна')
+        if errorcount == 0:
+            if C[rowcount - 1, rowcount - 1] == 0:
+                print('В ходе решения на главной диагонали оказался ноль - система не совместна')
+                errorcount += 1
 
-        else:
-            X[rowcount - 1] = D[rowcount - 1] / C[rowcount - 1, rowcount - 1]
-            for i in range(rowcount - 2, 0 - 1, -1):
-                S = 0
+                result = 0
+            else:
+                X[rowcount - 1] = D[rowcount - 1] / C[rowcount - 1, rowcount - 1]
+                for i in range(rowcount - 2, 0 - 1, -1):
+                    S = 0
 
-                for j in range(i+1, rowcount):
-                    S += C[i, j] * X[j]
+                    for j in range(i+1, rowcount):
+                        S += C[i, j] * X[j]
 
-                X[i] = (D[i] - S) / C[i, i]
+                    X[i] = (D[i] - S) / C[i, i]
 
 
-            result = X
-            return result
+                result = X
+    
+    return result

@@ -1,5 +1,4 @@
 import matrix_expression as me
-import initialization
 import numpy as np
 
 # Расчёт значений узловых потенциалов всей схемы
@@ -14,16 +13,23 @@ def U(A, Y, I, E):
 
     matrix = me.gauss(LEFT, RIGHT)
 
-    rowcount = matrix.shape[0]
+    if isinstance(matrix, int) and matrix == 0:
+        dictionary = {
+            'list':0,
+            'matrix':0
+        }
 
-    list = np.zeros([rowcount + 1], dtype=np.complex64)
-    for i in range(1, rowcount + 1):
-        list[i] = matrix[i - 1, 0]
+    else:
+        rowcount = matrix.shape[0]
 
-    dictionary = {
-        'list':list,
-        'matrix':matrix
-    }
+        list = np.zeros([rowcount + 1], dtype=np.complex64)
+        for i in range(1, rowcount + 1):
+            list[i] = matrix[i - 1, 0]
+
+        dictionary = {
+            'list':list,
+            'matrix':matrix
+        }
 
     return dictionary
 

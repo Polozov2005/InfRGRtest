@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import messagebox
 from ctypes import windll
+import numpy as np
 
 import initialization
 import equation
@@ -194,19 +196,19 @@ for k in range(-((-len(Y_list)+1)//10)):
     )
 
     for i in range(1, 10 + 1):
-        label_count = Label(
-            frm_Y,
-            text=str(i + 10*k)
-        )
-
-        label_count.grid(
-            row=2*k,
-            column=i
-        )
-
         delta = (len(Y_list) - 1) - 10*k
         if delta < 10:
             for j in range(1, delta + 1):
+                label_count = Label(
+                    frm_Y,
+                    text=str(j + 10*k)
+                )
+
+                label_count.grid(
+                    row=2*k,
+                    column=j
+                )
+                
                 label_Y_list = Label(
                     frm_Y,
                     text=str(Y_list[j + 10*k])
@@ -218,6 +220,15 @@ for k in range(-((-len(Y_list)+1)//10)):
                 )
 
         else:
+            label_count = Label(
+                frm_Y,
+                text=str(i + 10*k)
+            )
+            label_count.grid(
+                row=2*k,
+                column=i
+            )
+            
             label_Y_list = Label(
                 frm_Y,
                 text=str(Y_list[i + 10*k])
@@ -298,10 +309,13 @@ def click_solve():
         E=E_matrix
     )['list']
 
-    X_list = equation.X(U_list)['list']
-
-    print(U_list)
-    # print(X_list)
+    if isinstance(U_list, int) and U_list == 0:
+        messagebox.showerror(
+            title='Ошибка в ходе решения уравнения',
+            message='В ходе решения на главной диагонали оказался ноль - система не совместна'
+        )
+    else:
+        print(U_list)
 
 btn_solve = Button(
     frm_solveandsave,
@@ -310,7 +324,74 @@ btn_solve = Button(
 )
 btn_solve.grid(row=0, column=0)
 
+### U
+U_list = np.zeros([16 + 1], dtype=np.complex64)
 
+for k in range(-((-len(U_list)+1)//10)):
+    label_i_U = Label(
+        frm_U,
+        text='i'
+    )
+
+    label_i_U.grid(
+        row=2*k,
+        column=0,
+    )
+
+    label_U = Label(
+        frm_U,
+        text='U[i], кВ'
+    )
+
+    label_U.grid(
+        row=2*k + 1,
+        column=0,
+    )
+
+    for i in range(1, 10 + 1):
+        delta = (len(U_list) - 1) - 10*k
+        if delta < 10:
+            for j in range(1, delta + 1):
+                label_count = Label(
+                    frm_U,
+                    text=str(j + 10*k)
+                )
+
+                label_count.grid(
+                    row=2*k,
+                    column=j
+                )
+                
+                label_U_list = Label(
+                    frm_U,
+                    text=str(Y_list[j + 10*k])
+                )
+
+                label_U_list.grid(
+                    row=2*k + 1,
+                    column=j
+                )
+
+        else:
+            label_count = Label(
+                frm_U,
+                text=str(i + 10*k)
+            )
+
+            label_count.grid(
+                row=2*k,
+                column=i
+            )
+            
+            label_U_list = Label(
+                frm_U,
+                text=str(U_list[i + 10*k])
+            )
+
+            label_U_list.grid(
+                row=2*k + 1,
+                column=i
+            )
 
 
 root.mainloop()
