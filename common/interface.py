@@ -1,6 +1,9 @@
 from tkinter import *
 from ctypes import windll
+
 import initialization
+import equation
+
 
 # Настройка дизайна
 background_color = '#181818'
@@ -118,36 +121,43 @@ label_B_checkbutton.grid(
 list_label_checkbutton = [[]]
 list_checkbutton = [[]]
 list_enabled_checkbutton = [[]]
-for i in range(1, 10 +  1):    
-    label_checkbutton = Label(
-        frm_checkbutton,
-        text=str(i)
-    )
+columncount_checkbutton = 0
+for i in range(1, 24 +  1):
+    if i == 9 or (11 < i < 21):
+        list_label_checkbutton.append([])
+        list_checkbutton.append([])
+        list_enabled_checkbutton.append([])
 
-    list_label_checkbutton.append(label_checkbutton)
+    else:
+        columncount_checkbutton += 1
+        label_checkbutton = Label(
+            frm_checkbutton,
+            text=str(i)
+        )
 
-    list_label_checkbutton[i].grid(
-        row = 0,
-        column = i
-    )
+        list_label_checkbutton.append(label_checkbutton)
 
-    enabled_checkbutton = IntVar()
+        list_label_checkbutton[i].grid(
+            row = 0,
+            column = columncount_checkbutton
+        )
 
-    checkbutton = Checkbutton(
-        frm_checkbutton,
-        variable=enabled_checkbutton,
-    )
+        enabled_checkbutton = IntVar(value=1)
 
-    list_checkbutton.append(checkbutton)
-    list_enabled_checkbutton.append(enabled_checkbutton)
+        checkbutton = Checkbutton(
+            frm_checkbutton,
+            variable=enabled_checkbutton,
+        )
 
-    list_checkbutton[i].grid(
-        row = 1,
-        column = i,
-    )
+        list_checkbutton.append(checkbutton)
+        list_enabled_checkbutton.append(enabled_checkbutton)
 
+        list_checkbutton[i].grid(
+            row = 1,
+            column = columncount_checkbutton,
+        )
 
-for i in range(len(list_label_checkbutton)):
+for i in range(columncount_checkbutton + 1):
     frm_checkbutton.columnconfigure(
         index=i,
         weight=1
@@ -217,6 +227,89 @@ for k in range(-((-len(Y_list)+1)//10)):
                 row=2*k + 1,
                 column=i
             )
+
+### Вывод кнопки для расчёта
+def click_solve():
+    A_matrix = initialization.A()['matrix']
+    Y_matrix = initialization.Y()['matrix']
+    I_matrix = initialization.I()['matrix']
+    E_matrix = initialization.E()['matrix']
+
+    if list_enabled_checkbutton[1].get() == 0:
+        i = 5
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[2].get() == 0:
+        i = 6
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[3].get() == 0:
+        i = 9
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[4].get() == 0:
+        i = 10
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[5].get() == 0:
+        i = 13
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[6].get() == 0:
+        i = 14
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[7].get() == 0:
+        i = 15
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[8].get() == 0:
+        i = 16
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[10].get() == 0:
+        i = 30
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[11].get() == 0:
+        i = 29
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[21].get() == 0:
+        i = 7
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[22].get() == 0:
+        i = 8
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[23].get() == 0:
+        i = 21
+        Y_matrix[i - 1, i - 1] = 0
+
+    if list_enabled_checkbutton[24].get() == 0:
+        i = 22
+        Y_matrix[i - 1, i - 1] = 0
+
+    U_list = equation.U(
+        A=A_matrix,
+        Y=Y_matrix,
+        I=I_matrix,
+        E=E_matrix
+    )['list']
+
+    X_list = equation.X(U_list)['list']
+
+    print(U_list)
+    # print(X_list)
+
+btn_solve = Button(
+    frm_solveandsave,
+    text='Рассчитать',
+    command=click_solve
+)
+btn_solve.grid(row=0, column=0)
+
 
 
 

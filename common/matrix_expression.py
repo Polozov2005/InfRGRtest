@@ -102,7 +102,6 @@ def gauss(A, B):
         D = D.astype('complex64')
 
         rowcount = C.shape[0]
-
         X = np.zeros([rowcount, 1], dtype=np.complex64)
 
         # Прямой ход
@@ -120,15 +119,19 @@ def gauss(A, B):
                     D[i] += -D[k] * coefficient
 
         # Обратный ход
-        X[rowcount - 1] = D[rowcount - 1] / C[rowcount - 1, rowcount - 1]
-        for i in range(rowcount - 2, 0 - 1, -1):
-            S = 0
+        if C[rowcount - 1, rowcount - 1] == 0:
+            print('В ходе решения на главной диагонали оказался ноль - система не совместна')
 
-            for j in range(i+1, rowcount):
-                S += C[i, j] * X[j]
-            
-            X[i] = (D[i] - S) / C[i, i]
+        else:
+            X[rowcount - 1] = D[rowcount - 1] / C[rowcount - 1, rowcount - 1]
+            for i in range(rowcount - 2, 0 - 1, -1):
+                S = 0
+
+                for j in range(i+1, rowcount):
+                    S += C[i, j] * X[j]
+
+                X[i] = (D[i] - S) / C[i, i]
 
 
-        result = X
-        return result
+            result = X
+            return result
