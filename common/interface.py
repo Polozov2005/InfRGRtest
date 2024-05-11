@@ -364,7 +364,7 @@ for k in range(-((-len(U_list)+1)//10)):
                 
                 label_U_list = Label(
                     frm_U,
-                    text=str(Y_list[j + 10*k])
+                    text=str(U_list[j + 10*k])
                 )
 
                 label_U_list.grid(
