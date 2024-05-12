@@ -239,6 +239,76 @@ for k in range(-((-len(Y_list)+1)//10)):
                 column=i
             )
 
+### E
+E_list = initialization.E()['list']
+
+for k in range(-((-len(E_list)+1)//10)):
+    label_i_E = Label(
+        frm_E,
+        text='i'
+    )
+
+    label_i_E.grid(
+        row=2*k,
+        column=0,
+    )
+
+    label_E = Label(
+        frm_E,
+        text='E[i], См'
+    )
+
+    label_E.grid(
+        row=2*k + 1,
+        column=0,
+    )
+
+    for i in range(1, 10 + 1):
+        delta = (len(E_list) - 1) - 10*k
+        if delta < 10:
+            for j in range(1, delta + 1):
+                label_count = Label(
+                    frm_E,
+                    text=str(j + 10*k)
+                )
+
+                label_count.grid(
+                    row=2*k,
+                    column=j
+                )
+                
+                label_E_list = Label(
+                    frm_E,
+                    text=str(E_list[j + 10*k])
+                )
+
+                label_E_list.grid(
+                    row=2*k + 1,
+                    column=j
+                )
+
+        else:
+            label_count = Label(
+                frm_E,
+                text=str(i + 10*k)
+            )
+            label_count.grid(
+                row=2*k,
+                column=i
+            )
+            
+            label_E_list = Label(
+                frm_E,
+                text=str(Y_list[i + 10*k])
+            )
+
+            label_E_list.grid(
+                row=2*k + 1,
+                column=i
+            )
+
+
+
 ### Вывод кнопки для расчёта
 def click_solve():
     A_matrix = initialization.A()['matrix']
@@ -315,7 +385,73 @@ def click_solve():
             message='В ходе решения на главной диагонали оказался ноль - система не совместна'
         )
     else:
-        print(U_list)
+        for k in range(-((-len(U_list)+1)//9)):
+            label_i_U = Label(
+                frm_U,
+                text='i'
+            )
+
+            label_i_U.grid(
+                row=2*k,
+                column=0,
+            )
+
+            label_U = Label(
+                frm_U,
+                text='U[i], кВ'
+            )
+
+            label_U.grid(
+                row=2*k + 1,
+                column=0,
+            )
+
+            for i in range(1, 9 + 1):
+                delta = (len(U_list) - 1) - 9*k
+                if delta < 9:
+                    for j in range(1, delta + 1):
+                        label_count = Label(
+                            frm_U,
+                            text=str(j + 9*k)
+                        )
+
+                        label_count.grid(
+                            row=2*k,
+                            column=j
+                        )
+                        
+                        label_U_list = Label(
+                            frm_U,
+                            text=str(np.round(U_list[j + 9*k], 2))
+                        )
+
+                        label_U_list.grid(
+                            row=2*k + 1,
+                            column=j
+                        )
+
+                else:
+                    label_count = Label(
+                        frm_U,
+                        text=str(i + 9*k)
+                    )
+
+                    label_count.grid(
+                        row=2*k,
+                        column=i
+                    )
+                    
+                    label_U_list = Label(
+                        frm_U,
+                        text=str(np.round(U_list[i + 9*k], 2))
+                    )
+
+                    label_U_list.grid(
+                        row=2*k + 1,
+                        column=i
+                    )
+            
+        X_list = equation.X(U_list)['list']
 
 btn_solve = Button(
     frm_solveandsave,
@@ -327,7 +463,7 @@ btn_solve.grid(row=0, column=0)
 ### U
 U_list = np.zeros([16 + 1], dtype=np.complex64)
 
-for k in range(-((-len(U_list)+1)//10)):
+for k in range(-((-len(U_list)+1)//9)):
     label_i_U = Label(
         frm_U,
         text='i'
@@ -348,13 +484,13 @@ for k in range(-((-len(U_list)+1)//10)):
         column=0,
     )
 
-    for i in range(1, 10 + 1):
-        delta = (len(U_list) - 1) - 10*k
-        if delta < 10:
+    for i in range(1, 9 + 1):
+        delta = (len(U_list) - 1) - 9*k
+        if delta < 9:
             for j in range(1, delta + 1):
                 label_count = Label(
                     frm_U,
-                    text=str(j + 10*k)
+                    text=str(j + 9*k)
                 )
 
                 label_count.grid(
@@ -364,7 +500,7 @@ for k in range(-((-len(U_list)+1)//10)):
                 
                 label_U_list = Label(
                     frm_U,
-                    text=str(U_list[j + 10*k])
+                    text=str(U_list[j + 9*k])
                 )
 
                 label_U_list.grid(
@@ -375,7 +511,7 @@ for k in range(-((-len(U_list)+1)//10)):
         else:
             label_count = Label(
                 frm_U,
-                text=str(i + 10*k)
+                text=str(i + 9*k)
             )
 
             label_count.grid(
@@ -385,7 +521,7 @@ for k in range(-((-len(U_list)+1)//10)):
             
             label_U_list = Label(
                 frm_U,
-                text=str(U_list[i + 10*k])
+                text=str(U_list[i + 9*k])
             )
 
             label_U_list.grid(
