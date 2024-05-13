@@ -34,7 +34,6 @@ frm_scheme.place(
 
 frm_checkbutton = Frame(
     root,
-    background='orange'
 )
 frm_checkbutton.place(
     x=800,
@@ -45,7 +44,6 @@ frm_checkbutton.place(
 
 frm_Y = Frame(
     root,
-    background='yellow'
 )
 frm_Y.place(
     x=800,
@@ -56,7 +54,6 @@ frm_Y.place(
 
 frm_E = Frame(
     root,
-    background='green'
 )
 frm_E.place(
     x=800,
@@ -67,7 +64,6 @@ frm_E.place(
 
 frm_solveandsave = Frame(
     root,
-    background='blue'
 )
 frm_solveandsave.place(
     x=800,
@@ -78,7 +74,6 @@ frm_solveandsave.place(
 
 frm_U = Frame(
     root,
-    background='indigo'
 )
 frm_U.place(
     x=800,
@@ -89,7 +84,6 @@ frm_U.place(
 
 frm_X = Frame(
     root,
-    background='violet'
 )
 frm_X.place(
     x=800,
@@ -97,6 +91,20 @@ frm_X.place(
     width = 800,
     height = 160
 )
+
+### Схема
+scheme = PhotoImage(file="gfx/scheme.png")
+
+label_scheme = Label(
+    frm_scheme,
+    image=scheme
+)
+
+label_scheme.grid(
+    row=0,
+    column=0
+)
+
 
 ### Выключатели
 
@@ -558,6 +566,29 @@ btn_solve = Button(
     command=click_solve
 )
 btn_solve.grid(row=0, column=0)
+
+### Вывод кнопки для сохранения
+
+
+btn_save = Button(
+    frm_solveandsave,
+    text='Сохранить',
+    # command=click_save
+)
+btn_save.grid(row=0, column=1)
+
+for i in range(2):
+    frm_solveandsave.columnconfigure(
+        index=i,
+        weight=1
+    )
+
+for i in range(1):
+    frm_solveandsave.rowconfigure(
+        index=i,
+        weight=1
+    )
+
 
 ### U
 U_list = np.zeros([16 + 1], dtype=np.complex64)
