@@ -3,8 +3,8 @@ from tkinter import messagebox
 from ctypes import windll
 import numpy as np
 
-import initialization
 import equation
+import initialization
 import saving
 
 def interface_initialization():
