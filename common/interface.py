@@ -239,6 +239,18 @@ for k in range(-((-len(Y_list)+1)//10)):
                 column=i
             )
 
+for i in range(11):
+    frm_Y.columnconfigure(
+        index=i,
+        weight=1
+    )
+
+for i in range(6):
+    frm_Y.rowconfigure(
+        index=i,
+        weight=1
+    )
+
 ### E
 E_list = initialization.E()['list']
 
@@ -255,7 +267,7 @@ for k in range(-((-len(E_list)+1)//10)):
 
     label_E = Label(
         frm_E,
-        text='E[i], См'
+        text='E[i], кВ'
     )
 
     label_E.grid(
@@ -307,6 +319,17 @@ for k in range(-((-len(E_list)+1)//10)):
                 column=i
             )
 
+for i in range(5):
+    frm_E.columnconfigure(
+        index=i,
+        weight=1
+    )
+
+for i in range(2):
+    frm_E.rowconfigure(
+        index=i,
+        weight=1
+    )
 
 
 ### Вывод кнопки для расчёта
@@ -385,6 +408,8 @@ def click_solve():
             message='В ходе решения на главной диагонали оказался ноль - система не совместна'
         )
     else:
+        U_list = np.round(U_list, 2)
+
         for k in range(-((-len(U_list)+1)//9)):
             label_i_U = Label(
                 frm_U,
@@ -417,17 +442,19 @@ def click_solve():
 
                         label_count.grid(
                             row=2*k,
-                            column=j
+                            column=j,
+                            sticky=NSEW
                         )
                         
                         label_U_list = Label(
                             frm_U,
-                            text=str(np.round(U_list[j + 9*k], 2))
+                            text=str(U_list[j + 9*k])
                         )
 
                         label_U_list.grid(
                             row=2*k + 1,
-                            column=j
+                            column=j,
+                            sticky=NSEW
                         )
 
                 else:
@@ -438,20 +465,92 @@ def click_solve():
 
                     label_count.grid(
                         row=2*k,
-                        column=i
+                        column=i,
+                        sticky=NSEW
                     )
                     
                     label_U_list = Label(
                         frm_U,
-                        text=str(np.round(U_list[i + 9*k], 2))
+                        text=str(U_list[i + 9*k])
                     )
 
                     label_U_list.grid(
                         row=2*k + 1,
-                        column=i
+                        column=i,
+                        sticky=NSEW
                     )
             
         X_list = equation.X(U_list)['list']
+
+        for k in range(-((-len(X_list)+1)//9)):
+            label_i_X = Label(
+                frm_X,
+                text='i'
+            )
+
+            label_i_X.grid(
+                row=2*k,
+                column=0,
+            )
+
+            label_X = Label(
+                frm_X,
+                text='X[i], кВ'
+            )
+
+            label_X.grid(
+                row=2*k + 1,
+                column=0,
+            )
+
+            for i in range(1, 9 + 1):
+                delta = (len(X_list) - 1) - 9*k
+                if delta < 9:
+                    for j in range(1, delta + 1):
+                        label_count = Label(
+                            frm_X,
+                            text=str(j + 9*k)
+                        )
+
+                        label_count.grid(
+                            row=2*k,
+                            column=j,
+                            sticky=NSEW
+                        )
+                        
+                        label_X_list = Label(
+                            frm_X,
+                            text=str(X_list[j + 9*k])
+                        )
+
+                        label_X_list.grid(
+                            row=2*k + 1,
+                            column=j,
+                            sticky=NSEW
+                        )
+
+                else:
+                    label_count = Label(
+                        frm_X,
+                        text=str(i + 9*k)
+                    )
+
+                    label_count.grid(
+                        row=2*k,
+                        column=i,
+                        sticky=NSEW
+                    )
+                    
+                    label_X_list = Label(
+                        frm_X,
+                        text=str(X_list[i + 9*k])
+                    )
+
+                    label_X_list.grid(
+                        row=2*k + 1,
+                        column=i,
+                        sticky=NSEW
+                    )
 
 btn_solve = Button(
     frm_solveandsave,
@@ -472,6 +571,7 @@ for k in range(-((-len(U_list)+1)//9)):
     label_i_U.grid(
         row=2*k,
         column=0,
+        sticky=NSEW
     )
 
     label_U = Label(
@@ -482,6 +582,7 @@ for k in range(-((-len(U_list)+1)//9)):
     label_U.grid(
         row=2*k + 1,
         column=0,
+        sticky=NSEW
     )
 
     for i in range(1, 9 + 1):
@@ -495,7 +596,8 @@ for k in range(-((-len(U_list)+1)//9)):
 
                 label_count.grid(
                     row=2*k,
-                    column=j
+                    column=j,
+                    sticky=NSEW
                 )
                 
                 label_U_list = Label(
@@ -505,7 +607,8 @@ for k in range(-((-len(U_list)+1)//9)):
 
                 label_U_list.grid(
                     row=2*k + 1,
-                    column=j
+                    column=j,
+                    sticky=NSEW
                 )
 
         else:
@@ -516,7 +619,8 @@ for k in range(-((-len(U_list)+1)//9)):
 
             label_count.grid(
                 row=2*k,
-                column=i
+                column=i,
+                sticky=NSEW
             )
             
             label_U_list = Label(
@@ -526,8 +630,108 @@ for k in range(-((-len(U_list)+1)//9)):
 
             label_U_list.grid(
                 row=2*k + 1,
-                column=i
+                column=i,
+                sticky=NSEW
             )
+
+for i in range(10):
+    frm_U.columnconfigure(
+        index=i,
+        weight=1
+    )
+
+for i in range(4):
+    frm_U.rowconfigure(
+        index=i,
+        weight=1
+    )
+
+### X
+X_list = np.zeros([10 + 1], dtype=np.complex64)
+
+for k in range(-((-len(X_list)+1)//9)):
+    label_i_X = Label(
+        frm_X,
+        text='i'
+    )
+
+    label_i_X.grid(
+        row=2*k,
+        column=0,
+        sticky=NSEW
+    )
+
+    label_X = Label(
+        frm_X,
+        text='X[i], кВ'
+    )
+
+    label_X.grid(
+        row=2*k + 1,
+        column=0,
+        sticky=NSEW
+    )
+
+    for i in range(1, 9 + 1):
+        delta = (len(X_list) - 1) - 9*k
+        if delta < 9:
+            for j in range(1, delta + 1):
+                label_count = Label(
+                    frm_X,
+                    text=str(j + 9*k)
+                )
+
+                label_count.grid(
+                    row=2*k,
+                    column=j,
+                    sticky=NSEW
+                )
+                
+                label_X_list = Label(
+                    frm_X,
+                    text=str(X_list[j + 9*k])
+                )
+
+                label_X_list.grid(
+                    row=2*k + 1,
+                    column=j,
+                    sticky=NSEW
+                )
+
+        else:
+            label_count = Label(
+                frm_X,
+                text=str(i + 9*k)
+            )
+
+            label_count.grid(
+                row=2*k,
+                column=i,
+                sticky=NSEW
+            )
+            
+            label_X_list = Label(
+                frm_X,
+                text=str(X_list[i + 9*k])
+            )
+
+            label_X_list.grid(
+                row=2*k + 1,
+                column=i,
+                sticky=NSEW
+            )
+
+for i in range(10):
+    frm_X.columnconfigure(
+        index=i,
+        weight=1
+    )
+
+for i in range(4):
+    frm_X.rowconfigure(
+        index=i,
+        weight=1
+    )
 
 
 root.mainloop()
