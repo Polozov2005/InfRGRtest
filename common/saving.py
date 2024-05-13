@@ -1,12 +1,21 @@
-import openpyxl # Для записи данных в Excell таблицу
+import xlsxwriter as wr # Для записи данных в Excell таблицу
 import numpy as np # Для работы с матрицами
+import pandas as pd # Для работы с матрицами
 
 # Запись значений напряжений узловых потенциалов в файл U.xlsx
-def U():
-    wb = openpyxl.Workbook()
-    sheet = wb.active
-    c1 = sheet['B2']
-    c1.value = 1.5
-    wb.save("excell_tables\\U.xlsx")
+def X(X_list):
+    df_X = pd.DataFrame(data=X_list)
+    df_X = df_X.iloc[1:]
+    df_X.columns = ['X, кВ']
+    writer = pd.ExcelWriter('excell_tables/X.xlsx', engine='xlsxwriter')
+    df_X.to_excel(writer, 'X')
+    writer._save()
 
-U()
+X_list = np.array([
+    [0],
+    [1],
+    [2],
+    [5]
+])
+
+X(X_list)

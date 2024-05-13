@@ -5,21 +5,16 @@ import numpy as np
 
 import initialization
 import equation
+import saving
 
-
-# Настройка дизайна
-background_color = '#181818'
-foreground_color = '#cccccc'
-widget_background_color = '#1f1f1f'
-theme_color = '#4a9cd6'
-font = 'Arial'
+def interface_initialization():
+    root.mainloop()
 
 windll.shcore.SetProcessDpiAwareness(1) # Для отсутствия размытия интерфейса
 root = Tk()
 root.geometry("1600x900")
 root.title("РГР")
 root.resizable(False, False)
-root.configure(bg=background_color)
 
 frm_scheme = Frame(
     root,
@@ -340,8 +335,8 @@ for i in range(2):
     )
 
 
-### Вывод кнопки для расчёта
-def click_solve():
+### Вывод кнопки для расчёта и сохранения
+def click_solve():    
     A_matrix = initialization.A()['matrix']
     Y_matrix = initialization.Y()['matrix']
     I_matrix = initialization.I()['matrix']
@@ -489,6 +484,7 @@ def click_solve():
                     )
             
         X_list = equation.X(U_list)['list']
+        saving.X(X_list=X_list)
 
         for k in range(-((-len(X_list)+1)//9)):
             label_i_X = Label(
@@ -562,33 +558,12 @@ def click_solve():
 
 btn_solve = Button(
     frm_solveandsave,
-    text='Рассчитать',
+    text='Рассчитать и сохранить',
     command=click_solve
 )
 btn_solve.grid(row=0, column=0)
-
-### Вывод кнопки для сохранения
-
-
-btn_save = Button(
-    frm_solveandsave,
-    text='Сохранить',
-    # command=click_save
-)
-btn_save.grid(row=0, column=1)
-
-for i in range(2):
-    frm_solveandsave.columnconfigure(
-        index=i,
-        weight=1
-    )
-
-for i in range(1):
-    frm_solveandsave.rowconfigure(
-        index=i,
-        weight=1
-    )
-
+frm_solveandsave.columnconfigure(index=0, weight=1)
+frm_solveandsave.rowconfigure(index=0, weight=1)
 
 ### U
 U_list = np.zeros([16 + 1], dtype=np.complex64)
@@ -763,6 +738,3 @@ for i in range(4):
         index=i,
         weight=1
     )
-
-
-root.mainloop()
